@@ -52,6 +52,18 @@ module "vpn-vm" {
   vm-network       = module.vpc-subnetwork.sub_networks[0].id
 }
 
+module "test-vm" {
+  source = "./modules/test-vm"
+
+  vm               = var.test-vm
+  labels           = var.labels
+  metadata = {
+    user-data      = "${file("metadata/vm-metadata")}"
+  }
+  zone             = var.zone
+  vm-network       = module.vpc-subnetwork.sub_networks[0].id
+}
+
 # Create container registry
 module "container-registry"{
   source  = "./modules/container-registry/yandex"

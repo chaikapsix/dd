@@ -58,6 +58,34 @@ variable "vpn-vm" {
   })
 }
 
+variable "test-vm" {
+  description = "test vm"
+  type = object({
+      name = string
+      description = string
+      hostname = string
+      ip_address = string
+      resources = object({
+        cores = number
+	      memory = number
+	      fraction = number
+        gpus = number
+      })
+      nat = bool
+      boot_disk = object({
+        disk_id = string
+        initialize_params = object({
+          snapshot_id = string
+          image_id = string
+          name = string
+          description =string
+          size = number
+          type = string
+        })
+      })
+  })
+}
+
 variable "service-account" {
   description = "Configuration of service accounts network"
   type        = object({

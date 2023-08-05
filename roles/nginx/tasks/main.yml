@@ -1,10 +1,8 @@
 ---
-- name: Install Nginx Web Server on RedHat Family
-  yum:
-    name=nginx
-    state=latest
-  when:
-    ansible_os_family == "RedHat"
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    update_cache: yes
   notify:
     - nginx systemd
 
@@ -27,16 +25,10 @@
     path: /var/www/{{ virtual_domain }}
     state: directory
 
-- name: Add virtual domain in NGINX for RPM
-  vars:
-    fastcgi_pass_path: /var/run/php-fpm/php5-fpm.sock
+- name: Copy home directory for www
   template:
-    src=templates/nginx_vhosts.conf
-    dest=/etc/nginx/conf.d/{{ virtual_domain }}.conf
-  when:
-    ansible_os_family == "RedHat"
-  notify:
-    - nginx restart
+    src=templates/index.php
+    dest=/var/www/html/index.php
 
 - name: Add virtual domain in NGINX for Deb
   vars:

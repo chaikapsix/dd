@@ -56,6 +56,36 @@ vpn-vm = {
   }
 }
 
+## VM VPN
+test-vm = {
+  name = "test-vm"
+  description = "test vm"
+  
+  #fqdn -> <hostname>.<region_id>.internal
+  hostname = "test"
+  ip_address = "10.3.0.6"
+  resources = {
+    cores = 2
+	memory = 8
+	fraction = 20
+    gpus = 0
+  }
+  nat = true
+  boot_disk = {
+    disk_id = null
+    initialize_params = {
+      snapshot_id = null
+      image_id = "fd8bkgba66kkf9eenpkb"
+      #image_id = null
+      name = "test-vm-system"
+      description = "vpn vm boot disk"
+      size = 45
+      type = "network-hdd"
+    }
+  }
+}
+
+
 ## Registry
 container-registry = {
 	name = "registry-production-ddbon"

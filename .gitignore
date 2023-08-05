@@ -17,4 +17,6 @@ vendor/
 .vscode/
 .DS_Store
 key.json
+venv/
+config.py
 
